@@ -31,6 +31,8 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USpringArmComponent*SpringArmComponent;
+
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
