@@ -13,6 +13,7 @@ AScharacter::AScharacter()
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
 	SpringArmComponent->SetupAttachment(RootComponent);
 	SpringArmComponent->bUsePawnControlRotation = true;
+	bUseControllerRotationYaw = false;
 
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
 	CameraComp->SetupAttachment(SpringArmComponent); 
@@ -49,6 +50,13 @@ void AScharacter::MoveRight(float Value)
 
 }
 
+void AScharacter::SJump()
+{
+	bPressedJump = true;
+	JumpKeyHoldTime = 0.0f;
+}
+
+
 // Called every frame
 void AScharacter::Tick(float DeltaTime)
 {
@@ -63,12 +71,15 @@ void AScharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	PlayerInputComponent->BindAxis("MoveForward",this,&AScharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AScharacter::MoveRight);
-
+	
 	PlayerInputComponent->BindAxis("Lookup", this, &AScharacter::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("Turn", this, &AScharacter::AddControllerYawInput);
 
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AScharacter::BeginCrouch);
 	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AScharacter::EndCrouch);
+
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &AScharacter::SJump);
+	
 	
 	
 }
