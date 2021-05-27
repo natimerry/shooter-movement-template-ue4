@@ -25,12 +25,16 @@ protected:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void SJump();
+	
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Components")
 	UCameraComponent*CameraComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USpringArmComponent*SpringArmComponent;
+
+	UPROPERTY(EditAnywhere ,Category= "Speed",BlueprintReadWrite)
+	float run_speed = 200.0f;
 
 
 public:	

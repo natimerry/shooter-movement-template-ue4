@@ -4,7 +4,8 @@
 #include <Camera/CameraComponent.h>
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/PawnMovementComponent.h"
-
+#include <LogMacros.h>
+#include <iostream>
 // Sets default values
 AScharacter::AScharacter()
 {
@@ -42,13 +43,15 @@ void AScharacter::EndCrouch()
 
 void AScharacter::MoveForward(float Value)
 {
+	
 	AddMovementInput(GetActorForwardVector() * Value);
 	
 }
 
 void AScharacter::MoveRight(float Value)
 {
-	AddMovementInput(GetActorRightVector() * Value);
+	
+	AddMovementInput(GetActorRightVector() * 400);
 
 }
 
@@ -57,6 +60,7 @@ void AScharacter::SJump()
 	bPressedJump = true;
 	JumpKeyHoldTime = 0.0f;
 }
+
 
 
 // Called every frame
@@ -71,7 +75,8 @@ void AScharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAxis("MoveForward",this,&AScharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveForward" ,this,&AScharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveForward" , this, &AScharacter::MoveForwardEnd);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AScharacter::MoveRight);
 	
 	PlayerInputComponent->BindAxis("Lookup", this, &AScharacter::AddControllerPitchInput);
